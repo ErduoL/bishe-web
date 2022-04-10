@@ -4,10 +4,12 @@ import {
   Button, Form, Input, message,
 } from 'antd';
 import jsCookie from 'js-cookie';
+import { Redirect } from 'react-router-dom';
 import mySchool from '../../images/mySchool.jpeg';
 import hongzhong from '../../images/hongzhong.jpg';
-import { API_SUCCESS_CODE } from '../../common/constants';
+import { API_SUCCESS_CODE, LOCAL_USER_INFO_TOKEN } from '../../common/constants';
 import UserService from '../../services/UserService';
+import paths from '../../routers/paths';
 
 const LoginStyle = styled.div`
     height: 100vh;
@@ -71,6 +73,10 @@ const LoginStyle = styled.div`
     }
 `;
 
+const GuardComponent = () => (
+  <Redirect exact to={paths.home} />
+);
+
 const LoginComponents = () => {
   const onFinishFailed = () => {
 
@@ -80,11 +86,15 @@ const LoginComponents = () => {
     const user = { loginName: values.username, password: values.password };
     UserService.login(user).then((response) => {
       if (response.code === API_SUCCESS_CODE) {
-        jsCookie.set('LOCAL_USER_INFO_TOKEN', response.data);
+        jsCookie.set(LOCAL_USER_INFO_TOKEN, response.data.token);
         jsCookie.set('username', response.data.data.memberName);
         jsCookie.set('avatar', response.data.data.avatar);
         jsCookie.set('id', response.data.data.id);
         jsCookie.set('auth', response.data.data.auth);
+        const { menus } = response.data.data;
+
+        jsCookie.set('menus', JSON.stringify(menus));
+
         message.success(response.message);
         setTimeout(() => {
           window.location.replace('/');
@@ -100,6 +110,11 @@ const LoginComponents = () => {
   const register = () => {
     window.location.replace('/register');
   };
+
+  const token = jsCookie.get(LOCAL_USER_INFO_TOKEN);
+  if (token) {
+    return <GuardComponent />;
+  }
 
   return (
     <LoginStyle>

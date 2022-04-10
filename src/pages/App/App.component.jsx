@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import jsCookie from 'js-cookie';
 import SideBar from '../../components/SideBar';
 import ContentComponent, { Content } from '../../components/Content';
 import HeaderComponent from '../../components/Header';
 import FooterComponent from '../../components/FooterComponent';
 import { AppContainer } from './components/AppContainer';
-import { sideBarMenus } from '../../common/constants';
 
-function AppComponent() {
+const AppComponent = () => {
   const [collapsed, setCollapsed] = useState(false);
 
-  const menus = sideBarMenus;
+  let menus = [];
+
+  // console.log(menus);
+  try {
+    menus = JSON.parse(jsCookie.get('menus'));
+  } catch (error) {
+    console.log(error);
+  }
 
   return (
     <BrowserRouter>
@@ -31,6 +38,6 @@ function AppComponent() {
     </BrowserRouter>
 
   );
-}
+};
 
 export default AppComponent;

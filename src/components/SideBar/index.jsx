@@ -54,7 +54,9 @@ const SideBar = (props) => {
                     return (
                       <SubMenu
                         key={key}
-                        icon={icon}
+                        icon={
+                          <img src={icon} alt="logo" style={{ width: '20px' }} />
+                        }
                         title={title}
                         onTitleClick={() => {
                           if (path) {
@@ -66,7 +68,9 @@ const SideBar = (props) => {
                           subMenus.map((submenu) => (
                             <Item
                               key={submenu.key}
-                              icon={submenu.icon}
+                              icon={
+                                <img src={submenu.icon} alt="logo" style={{ width: '20px' }} />
+                              }
                             >
                               <Link to={submenu.path}>{submenu.title}</Link>
                             </Item>
@@ -79,7 +83,9 @@ const SideBar = (props) => {
                   return (
                     <Item
                       key={key}
-                      icon={icon}
+                      icon={
+                        <img src={icon} alt="logo" style={{ width: '20px' }} />
+                      }
                     >
                       <Link to={path}>{title}</Link>
                     </Item>

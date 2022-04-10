@@ -1,4 +1,3 @@
-import { RetweetOutlined } from '@ant-design/icons';
 import React from 'react';
 import paths from '../routers/paths';
 import logo from '../images/logo.png';
@@ -10,7 +9,7 @@ export const API_TOKEN_KEY = 'token';
 export const LOCAL_USER_INFO_TOKEN = '@QVQ@-USER-TOKEN';
 
 // 状态码
-export const API_SUCCESS_CODE = 200;
+export const API_SUCCESS_CODE = 20000;
 
 // 侧边栏宽度
 export const SIDE_BAR_WIDTH = '200px';
@@ -41,14 +40,6 @@ export const paginationConfig = {
 };
 
 // 侧边栏条目
-export const sideBarMenus = [
-  {
-    key: 'home',
-    title: '首页',
-    path: paths.home,
-    icon: <RetweetOutlined />,
-  },
-];
 
 // Footer 内容
 export const FOOTER_TEXT = 'Copyright © SDMU - Wang  Wenlong ';
